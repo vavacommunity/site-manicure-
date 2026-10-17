@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juliana Machado | Espaço de Beleza e Podologia — Sete Lagoas</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            100: '#FDF8E1',
+                            300: '#F3E5AB',
+                            400: '#E5C158',
+                            500: '#D4AF37',
+                            600: '#AA820A',
+                            700: '#856404',
+                        },
+                        charcoal: {
+                            800: '#18181B',
+                            900: '#0F0F11',
+                            950: '#080809',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #080809;
+            color: #E4E4E7;
+        }
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        /* Custom Gold Gradients */
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #FFF1B0 0%, #D4AF37 50%, #997A15 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gold-gradient-bg {
+            background: linear-gradient(135deg, #E5C158 0%, #D4AF37 50%, #997A15 100%);
+        }
+        .gold-gradient-bg-hover:hover {
+            background: linear-gradient(135deg, #F3E5AB 0%, #E5C158 50%, #AA820A 100%);
+        }
+        .gold-border-gradient {
+            border-image: linear-gradient(135deg, #D4AF37, #3F3F46) 1;
+        }
+        /* Glass Effect */
+        .glass-dark {
+            background: rgba(18, 18, 20, 0.82);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        .glass-card {
+            background: rgba(24, 24, 27, 0.65);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.18);
+        }
+        .glass-card:hover {
+            border-color: rgba(212, 175, 55, 0.5);
+            box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.15);
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #080809;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27272A;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D4AF37;
+        }
+    </style>
+</head>
+<body class="selection:bg-gold-500 selection:text-black min-h-screen flex flex-col antialiased">
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/5531980330444?text=Ol%C3%A1%20Juliana%2C%20gostaria%20de%20agendar%20um%20hor%C3%A1rio!" 
+       target="_blank" 
+       rel="noopener noreferrer" 
+       aria-label="Agendar via WhatsApp"
+       class="fixed bottom-6 right-6 z-50 group flex items-center justify-center">
+        <span class="absolute -inset-1 rounded-full bg-emerald-500/40 blur-md group-hover:bg-emerald-500/70 transition duration-300 animate-pulse"></span>
+        <div class="relative w-14 h-14 bg-emerald-500 hover:bg-emerald-400 text-white rounded-full flex items-center justify-center shadow-2xl transition duration-300 transform group-hover:scale-110">
+            <i class="fa-brands fa-whatsapp text-3xl"></i>
+        </div>
+        <span class="absolute right-16 bg-charcoal-800 text-white text-xs font-semibold px-3 py-1.5 rounded-lg border border-gold-500/30 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-xl pointer-events-none">
+            Agende pelo WhatsApp
+        </span>
+    </a>
+
+    <!-- Toast Notification Container -->
+    <div id="toast" class="fixed bottom-6 left-6 z-50 transform translate-y-32 opacity-0 transition-all duration-500 ease-in-out glass-card bg-charcoal-900 border border-gold-500/40 text-white px-6 py-4 rounded-xl shadow-2xl flex items-center space-x-4 max-w-sm pointer-events-none">
+        <div class="w-10 h-10 rounded-full gold-gradient-bg text-black flex items-center justify-center flex-shrink-0">
+            <i class="fa-solid fa-check text-lg"></i>
+        </div>
+        <div>
+            <h4 class="font-bold text-sm gold-gradient-text" id="toast-title">Sucesso!</h4>
+            <p class="text-xs text-zinc-300" id="toast-message">Redirecionando para o WhatsApp...</p>
+        </div>
+    </div>
+
+    <!-- Header / Navbar -->
+    <header class="fixed top-0 left-0 w-full z-40 glass-dark border-b border-gold-500/15 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Brand / Logo -->
+            <a href="#" class="flex items-center space-x-3 group">
+                <div class="w-11 h-11 rounded-full border border-gold-500/50 flex items-center justify-center text-gold-500 group-hover:border-gold-400 transition-colors bg-charcoal-900">
+                    <span class="font-serif font-bold text-lg tracking-wider gold-gradient-text">JM</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-serif font-bold text-lg tracking-wide text-white group-hover:text-gold-300 transition-colors">
+                        Juliana Machado
+                    </span>
+                    <span class="text-[10px] tracking-widest uppercase text-gold-500/90 font-medium">
+                        Beleza & Podologia
+                    </span>
+                </div>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-zinc-300">
+                <a href="#inicio" class="hover:text-gold-400 transition-colors">Início</a>
+                <a href="#servicos" class="hover:text-gold-400 transition-colors">Serviços</a>
+                <a href="#sobre" class="hover:text-gold-400 transition-colors">Sobre</a>
+                <a href="#galeria" class="hover:text-gold-400 transition-colors">Galeria</a>
+                <a href="#localizacao" class="hover:text-gold-400 transition-colors">Localização</a>
+            </nav>
+
+            <!-- CTA Header Button -->
+            <div class="hidden md:flex items-center">
+                <a href="https://wa.me/5531980330444?text=Ol%C3%A1%20Juliana%2C%20gostaria%20de%20agendar%20um%20hor%C3%A1rio!" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="gold-gradient-bg gold-gradient-bg-hover text-black font-semibold text-xs uppercase tracking-wider px-6 py-3 rounded-full transition-all duration-300 transform hover:-translate-y-0.5 shadow-lg shadow-gold-500/10 flex items-center space-x-2">
+                    <i class="fa-brands fa-whatsapp text-base"></i>
+                    <span>Agendar Horário</span>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle Button -->
+            <div class="flex items-center md:hidden">
+                <button id="mobile-menu-btn" aria-label="Abrir Menu" class="p-2.5 rounded-lg text-gold-500 hover:bg-charcoal-800 transition-colors focus:outline-none">
+                    <i class="fa-solid fa-bars-staggered text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden border-b border-gold-500/20 bg-charcoal-950/95 backdrop-blur-2xl">
+            <div class="px-6 py-6 space-y-4">
+                <a href="#inicio" class="mobile-link block text-base font-medium text-zinc-200 hover:text-gold-400 transition-colors">Início</a>
+                <a href="#servicos" class="mobile-link block text-base font-medium text-zinc-200 hover:text-gold-400 transition-colors">Serviços</a>
+                <a href="#sobre" class="mobile-link block text-base font-medium text-zinc-200 hover:text-gold-400 transition-colors">Sobre</a>
+                <a href="#galeria" class="mobile-link block text-base font-medium text-zinc-200 hover:text-gold-400 transition-colors">Galeria</a>
+                <a href="#localizacao" class="mobile-link block text-base font-medium text-zinc-200 hover:text-gold-400 transition-colors">Localização</a>
+                
+                <div class="pt-4 border-t border-zinc-800">
+                    <a href="https://wa.me/5531980330444?text=Ol%C3%A1%20Juliana%2C%20gostaria%20de%20agendar%20um%20hor%C3%A1rio!" 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       class="w-full gold-gradient-bg text-black font-bold text-center py-3.5 rounded-xl uppercase text-xs tracking-wider flex items-center justify-center space-x-2 shadow-lg">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                        <span>Agendar pelo WhatsApp</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow pt-20">
+
+        <!-- HERO SECTION -->
+        <section id="inicio" class="relative py-16 lg:py-28 overflow-hidden">
+            <!-- Ambient Background Glows -->
+            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] lg:w-[800px] h-[500px] bg-gold-500/10 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+            <div class="absolute bottom-10 right-10 w-96 h-96 bg-amber-600/5 rounded-full blur-[100px] pointer-events-none -z-10"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+                    
+                    <!-- Left Column: Copy & CTAs -->
+                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                        <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full border border-gold-500/30 bg-gold-500/5 text-gold-400 text-xs tracking-widest uppercase font-semibold">
+                            <i class="fa-solid fa-award text-sm text-gold-500"></i>
+                            <span>Atendimento Exclusivo em Sete Lagoas</span>
+                        </div>
+
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-serif font-extrabold text-white tracking-tight leading-[1.15]">
+                            Realce sua beleza natural com <span class="gold-gradient-text italic font-normal">excelência</span> e exclusividade.
+                        </h1>
+
+                        <p class="text-zinc-400 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 font-light leading-relaxed">
+                            Cabelos, unhas, podologia e cílios. Cada procedimento é cuidadosamente planejado para valorizar a sua autoestima com técnicas avançadas e produtos de alta qualidade.
+                        </p>
+
+                        <!-- CTA Buttons -->
+                        <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                            <a href="https://wa.me/5531980330444?text=Ol%C3%A1%20Juliana%2C%20gostaria%20de%20agendar%20um%20hor%C3%A1rio!" 
+                               target="_blank" 
+                               rel="noopener noreferrer" 
+                               class="w-full sm:w-auto px-8 py-4 rounded-full gold-gradient-bg gold-gradient-bg-hover text-black font-bold uppercase text-xs tracking-widest shadow-xl shadow-gold-500/10 transition-all transform hover:-translate-y-1 flex items-center justify-center space-x-3">
+                                <i class="fa-brands fa-whatsapp text-lg"></i>
+                                <span>Agendar no WhatsApp</span>
+                            </a>
+
+                            <a href="#servicos" 
+                               class="w-full sm:w-auto px-8 py-4 rounded-full bg-charcoal-800 hover:bg-zinc-800 border border-zinc-700 text-zinc-200 font-semibold uppercase text-xs tracking-widest transition-all text-center">
+                                Conhecer Serviços
+                            </a>
+                        </div>
+
+                        <!-- Highlights / Quick Stats -->
+                        <div class="pt-10 grid grid-cols-3 gap-4 border-t border-zinc-800/80 max-w-lg mx-auto lg:mx-0">
+                            <div class="text-center lg:text-left">
+                                <p class="text-2xl sm:text-3xl font-serif font-bold gold-gradient-text">100%</p>
+                                <p class="text-xs text-zinc-400 mt-1 uppercase tracking-wider">Personalizado</p>
+                            </div>
+                            <div class="text-center lg:text-left">
+                                <p class="text-2xl sm:text-3xl font-serif font-bold gold-gradient-text">Top</p>
+                                <p class="text-xs text-zinc-400 mt-1 uppercase tracking-wider">Qualidade</p>
+                            </div>
+                            <div class="text-center lg:text-left">
+                                <p class="text-2xl sm:text-3xl font-serif font-bold gold-gradient-text">Centro</p>
+                                <p class="text-xs text-zinc-400 mt-1 uppercase tracking-wider">Sete Lagoas</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Studio Card & Image Showcase -->
+                    <div class="lg:col-span-5 relative flex justify-center">
+                        <div class="relative w-full max-w-md">
+                            
+                            <!-- Frame Gold Border -->
+                            <div class="absolute -inset-1 rounded-3xl gold-gradient-bg opacity-30 blur-lg"></div>
+
+                            <!-- Main Studio Portrait Card -->
+                            <div class="relative rounded-3xl bg-charcoal-900 border border-gold-500/30 overflow-hidden shadow-2xl p-3">
+                                <div class="relative h-[420px] rounded-2xl overflow-hidden group">
+                                    <!-- Embedded Studio Image -->
+                                    <img src="image_414203.png" 
+                                         alt="Juliana Machado Espaço de Beleza" 
+                                         class="w-full h-full object-cover object-top transition duration-700 group-hover:scale-105"
+                                         onerror="this.src='https://placehold.co/600x800/18181b/D4AF37?text=Juliana+Machado'">
+                                    
+                                    <div class="absolute inset-0 bg-gradient-to-t from-charcoal-950 via-charcoal-950/20 to-transparent"></div>
+
+                                    <!-- Bottom Overlay Badge -->
+                                    <div class="absolute bottom-4 left-4 right-4 p-4 rounded-xl glass-dark border border-gold-500/30 text-center">
+                                        <h3 class="font-serif font-bold text-lg text-white">Juliana Machado</h3>
+                                        <p class="text-xs text-gold-400 tracking-wider uppercase font-medium mt-0.5">Espaço de Beleza & Podologia</p>
+                                        <p class="text-[11px] text-zinc-400 mt-1 flex items-center justify-center space-x-1">
+                                            <i class="fa-solid fa-location-dot text-gold-500"></i>
+                                            <span>Rua Paulo Frontin, 315 • Centro</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVIÇOS SECTION -->
+        <section id="servicos" class="py-20 bg-charcoal-900/60 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- Section Header -->
+                <div class="text-center max-w-3xl mx-auto space-y-3 mb-16">
+                    <span class="text-xs font-bold uppercase tracking-widest text-gold-500">Menu de Procedimentos</span>
+                    <h2 class="text-3xl sm:text-4xl font-serif font-bold text-white tracking-tight">
+                        Serviços Especializados
+                    </h2>
+                    <p class="text-zinc-400 text-sm sm:text-base">
+                        Atendimento com hora marcada para garantir conforto, biossegurança e resultados impecáveis.
+                    </p>
+                </div>
+
+                <!-- Services Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    
+                    <!-- Service Card 1: Cabelos -->
+                    <div class="glass-card rounded-2xl p-8 flex flex-col justify-between transition-all duration-300 group">
+                        <div class="space-y-4">
+                            <div class="w-14 h-14 rounded-2xl bg-charcoal-800 border border-gold-500/30 text-gold-400 flex items-center justify-center text-2xl group-hover:bg-gold-500 group-hover:text-black transition-all">
+                                <i class="fa-solid fa-scissors"></i>
+                            </div>
+                            <h3 class="text-xl font-serif font-bold text-white group-hover:text-gold-300 transition-colors">Cabelos & Tratamentos</h3>
+                            <p class="text-zinc-400 text-xs leading-relaxed">
+                                Mechas, luzes, coloração, tratamentos de reconstrução capilar, escova modelada, cronograma capilar e cortes modernos.
+                            </p>
+                            <ul class="space-y-1.5 pt-2 text-xs text-zinc-300">
+                                <li class="flex items-center space-x-2">
+                                    <i class="fa-solid fa-check text-gold-500 text-[10px]"></i>
+                                    <span>Tratamentos de Alta Nutrição</span>
+                                </li>
+                                <li class="flex items-center space-x-2">
+                                    <i class="fa-solid fa-check text-gold-500 text-[10px]"></i>
+                                    <span>Colorimetria Personalizada</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="pt-6 mt-6 border-t border-zinc-800 flex items-center justify-between">
+                            <span class="text-xs font-semibold text-gold-400">Consultar Valores</span>
+                            <a href="https://wa.me/5531980330444?text=Ol%C3%A1%20Juliana%2C%20gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os%20de%20Cabelo!" 
+                               target="_blank" 
+                               rel="noopener noreferrer" 
+                               class="text-xs text-zinc-300 hover:text-white font-bold flex items-center space-x-1">
+                                <span>Agendar</span>
+                                <i class="fa-solid fa-arrow-right text-[10px] text-gold-500"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Service Card 2: Unhas e Podologia -->
+                    <div class="glass-card rounded-2xl p-8 flex flex-col justify-between transition-all duration-300 group">
+                        <div class="space-y-4">
+                            <div class="w-14 h-14 rounded-2xl bg-charcoal-800 border border-gold-500/30 text-gold-400 flex items-center justify-center text-2xl group-hover:bg-gold-500 group-hover:text-black transition-all">
+                                <i class="fa-solid fa-hand-sparkles"></i>
+                            </div>
+                            <h3 class="text-xl font-serif font-bold text-white group-hover:text-gold-300 transition-colors">Unhas & Podologia</h3>
+                            <p class="text-zinc-400 text-xs leading-relaxed">
+                                Manicure, pedicure tradicional, esmaltação em gel, banho de gel e cuidados especializados em podologia para a saúde dos seus pés.
+                            </p>
+                            <ul class="space-y-1.5 pt-2 text-xs text-zinc-300">
+                                <li class="flex items-center space-x-2">
+                                    <i class="fa-solid fa-check text-gold-500 text-[10px]"></i>
+                                    <span>Biossegurança e Autoclave</span>
+                                </li>
+                                <li class="flex items-center space-x-2">
+                                    <i class="fa-solid fa-check text-gold-500 text-[10px]"></i>
+                                    <span>Podologia preventiva e corretiva</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="pt-6 mt-6 border-t border-zinc-800 flex items-center justify-between">
+                            <span class="text-xs font-semibold text-gold-400">Consultar Valores</span>
+                            <a href="https://wa.me/5531980330444?text=Ol%C3%A1%20Juliana%2C%20gostaria%20de%20saber%20mais%20sobre%20Unhas%20e%20Podologia!" 
+                               target="_blank" 
+                               rel="noopener noreferrer" 
+                               class="text-xs text-zinc-300 hover:text-white font-bold flex items-center space-x-1">
+                                <span>Agendar</span>
+                                <i class="fa-solid fa-arrow-right text-[10px] text-gold-500"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Service Card 3: Cílios e Extensões -->
+                    <div class="glass-card rounded-2xl p-8 flex flex-col justify-between transition-all duration-300 group">
+                        <div class="space-y-4">
+                            <div class="w-14 h-14 rounded-2xl bg-charcoal-800 border border-gold-500/30 text-gold-400 flex items-center justify-center text-2xl group-hover:bg-gold-500 group-hover:text-black transition-all">
+                                <i class="fa-solid fa-eye"></i>
+                            </div>
+                            <h3 class="text-xl font-serif font-bold text-white group-hover:text-gold-300 transition-colors">Cílios & Olhar</h3>
+                            <p class="text-zinc-400 text-xs leading-relaxed">
+                                Extensão de cílios (Fio a Fio, Volume Russo, Híbrido), Lash Lifting e design de sobrancelhas para destacar o olhar com delicadeza.
+                            </p>
+                            <ul class="space-y-1.5 pt-2 text-xs text-zinc-300">
+                                <li class="flex items-center space-x-2">
+                                    <i class="fa-solid fa-check text-gold-500 text-[10px]"></i>
+                                    <span>Fios ultra leves e confortáveis</span>
+                                </li>
+                                <li class="flex items-center space-x-2">
+                                    <i class="fa-solid fa-check text-gold-500 text-[10px]"></i>
+                                    <span>Mapeamento personalizado do olhar</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="pt-6 mt-6 border-t border-zinc-800 flex items-center justify-between">
+                            <span class="text-xs font-semibold text-gold-400">Consultar Valores</span>
+                            <a href="https://wa.me/5531980330444?text=Ol%C3%A1%20Juliana%2C%20gostaria%20de%20agendar%20um%20hor%C3%A1rio%20para%20C%C3%ADlios!" 
+                               target="_blank" 
+                               rel="noopener noreferrer" 
+                               class="text-xs text-zinc-300 hover:text-white font-bold flex items-center space-x-1">
+                                <span>Agendar</span>
+                                <i class="fa-solid fa-arrow-right text-[10px] text-gold-500"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Service Card 4: Estética e Cuidados Especiais -->
+                    <div class="glass-card rounded-2xl p-8 flex flex-col justify-between transition-all duration-300 group">
+                        <div class="space-y-4">
+                            <div class="w-14 h-14 rounded-2xl bg-charcoal-800 border border-gold-500/30 text-gold-400 flex items-center justify-center text-2xl group-hover:bg-gold-500 group-hover:text-black transition-all">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            </div>
+                            <h3 class="text-xl font-serif font-bold text-white group-hover:text-gold-300 transition-colors">Estética & Spa</h3>
+                            <p class="text-zinc-400 text-xs leading-relaxed">
+                                Cuidados estéticos faciais, hidratações profundas e pacotes especiais de dia da noiva e produções sociais.
+                            </p>
+                            <ul class="space-y-1.5 pt-2 text-xs text-zinc-300">
+                                <li class="flex items-center space-x-2">
+                                    <i class="fa-solid fa-check text-gold-500 text-[10px]"></i>
+                                    <span>Produtos de alta performance</span>
+                                </li>
+                                <li class="flex items-center space-x-2">
+                                    <i class="fa-solid fa-check text-gold-500 text-[10px]"></i>
+                                    <span>Ambiente privativo e climatizado</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="pt-6 mt-6 border-t border-zinc-800 flex items-center justify-between">
+                            <span class="text-xs font-semibold text-gold-400">Consultar Valores</span>
+                            <a href="https://wa.me/5531980330444?text=Ol%C3%A1%20Juliana%2C%20gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os%20de%20Est%C3%A9tica!" 
+                               target="_blank" 
+                               rel="noopener noreferrer" 
+                               class="text-xs text-zinc-300 hover:text-white font-bold flex items-center space-x-1">
+                                <span>Agendar</span>
+                                <i class="fa-solid fa-arrow-right text-[10px] text-gold-500"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SOBRE SECTION -->
+        <section id="sobre" class="py-20 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Left Column Image Frame -->
+                    <div class="lg:col-span-5 flex justify-center">
+                        <div class="relative w-full max-w-sm">
+                            <div class="absolute -inset-1 rounded-3xl bg-gradient-to-r from-gold-500/40 to-amber-700/20 blur-xl"></div>
+                            <div class="relative rounded-3xl bg-charcoal-900 border border-gold-500/30 overflow-hidden shadow-2xl p-4 text-center space-y-4">
+                                <img src="image_414203.png" 
+                                     alt="Juliana Machado" 
+                                     class="w-full h-80 object-cover object-top rounded-2xl"
+                                     onerror="this.src='https://placehold.co/500x600/18181b/D4AF37?text=Juliana+Machado'">
+                                <div class="pb-2">
+                                    <h4 class="font-serif text-xl font-bold text-white">Juliana Machado</h4>
+                                    <p class="text-xs text-gold-400 uppercase tracking-widest mt-1">Especialista em Beleza e Saúde Capilar / Podologia</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column Text Content -->
+                    <div class="lg:col-span-7 space-y-6">
+                        <span class="text-xs font-bold uppercase tracking-widest text-gold-500">Sobre o Espaço</span>
+                        <h2 class="text-3xl sm:text-4xl font-serif font-bold text-white tracking-tight">
+                            Atendimento humanizado, biossegurança e dedicação em cada detalhe.
+                        </h2>
+                        
+                        <p class="text-zinc-300 text-sm sm:text-base leading-relaxed">
+                            O espaço <strong class="text-white">Juliana Machado | Espaço de Beleza e Podologia</strong> foi criado para oferecer uma experiência acolhedora e sofisticada em Sete Lagoas - MG.
+                        </p>
+
+                        <p class="text-zinc-400 text-sm sm:text-base leading-relaxed">
+                            Acreditamos que cuidar da aparência vai além da estética: é um ato de carinho e renovação da autoestima. Por isso, oferecemos um ambiente agradável no centro da cidade, equipado com materiais esterilizados em autoclave e produtos de primeira linha.
+                        </p>
+
+                        <!-- Pillars -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                            <div class="p-4 rounded-xl bg-charcoal-900 border border-zinc-800 space-y-1">
+                                <div class="flex items-center space-x-2 text-gold-400 font-bold text-sm">
+                                    <i class="fa-solid fa-heart text-xs"></i>
+                                    <span>Atendimento Exclusivo</span>
+                                </div>
+                                <p class="text-xs text-zinc-400">Horários reservados para você receber total atenção sem pressa.</p>
+                            </div>
+
+                            <div class="p-4 rounded-xl bg-charcoal-900 border border-zinc-800 space-y-1">
+                                <div class="flex items-center space-x-2 text-gold-400 font-bold text-sm">
+                                    <i class="fa-solid fa-shield-virus text-xs"></i>
+                                    <span>Rigorosa Higiene</span>
+                                </div>
+                                <p class="text-xs text-zinc-400">Biossegurança e materiais descartáveis ou esterilizados.</p>
+                            </div>
+                        </div>
+
+                        <!-- CTA -->
+                        <div class="pt-4">
+                            <a href="https://wa.me/5531980330444?text=Ol%C3%A1%20Juliana%2C%20gostaria%20de%20agendar%20minha%20visita!" 
+                               target="_blank" 
+                               rel="noopener noreferrer" 
+                               class="inline-flex items-center space-x-3 gold-gradient-bg text-black font-bold text-xs uppercase tracking-widest px-7 py-3.5 rounded-full shadow-lg hover:shadow-gold-500/20 transition-all">
+                                <span>Agende sua Visita</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- GALERIA / PORTFÓLIO SECTION -->
+        <section id="galeria" class="py-20 bg-charcoal-900/40 border-y border-zinc-800/60">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto space-y-3 mb-12">
+                    <span class="text-xs font-bold uppercase tracking-widest text-gold-500">Resultados</span>
+                    <h2 class="text-3xl sm:text-4xl font-serif font-bold text-white tracking-tight">
+                        Galeria de Transformações
+                    </h2>
+                    <p class="text-zinc-400 text-sm">
+                        Confira um pouco do trabalho e da dedicação entregue a cada cliente.
+                    </p>
+                </div>
+
+                <!-- Category Filter Buttons -->
+                <div class="flex flex-wrap justify-center gap-2 mb-10" id="gallery-filters">
+                    <button data-filter="all" class="filter-btn active px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all gold-gradient-bg text-black shadow-md">
+                        Todos
+                    </button>
+                    <button data-filter="cabelos" class="filter-btn px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all bg-charcoal-800 text-zinc-300 hover:bg-zinc-700">
+                        Cabelos
+                    </button>
+                    <button data-filter="unhas" class="filter-btn px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all bg-charcoal-800 text-zinc-300 hover:bg-zinc-700">
+                        Unhas & Podologia
+                    </button>
+                    <button data-filter="cilios" class="filter-btn px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all bg-charcoal-800 text-zinc-300 hover:bg-zinc-700">
+                        Cílios
+                    </button>
+                </div>
+
+                <!-- Gallery Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="gallery-grid">
+                    
+                    <!-- Gallery Item 1 -->
+                    <div class="gallery-item cabelos rounded-2xl overflow-hidden glass-card group transition-all duration-300">
+                        <div class="relative h-72 overflow-hidden">
+                            <img src="https://placehold.co/600x600/18181b/D4AF37?text=Iluminado+Capilar" alt="Resultado Cabelo" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-charcoal-950/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <span class="px-4 py-2 rounded-full bg-gold-500 text-black text-xs font-bold uppercase">Morena Iluminada</span>
+                            </div>
+                        </div>
+                        <div class="p-4 border-t border-zinc-800">
+                            <h4 class="font-serif font-bold text-white text-sm">Morena Iluminada & Reconstrução</h4>
+                            <p class="text-xs text-zinc-400 mt-0.5">Tratamento e cor brilhante</p>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 2 -->
+                    <div class="gallery-item unhas rounded-2xl overflow-hidden glass-card group transition-all duration-300">
+                        <div class="relative h-72 overflow-hidden">
+                            <img src="https://placehold.co/600x600/27272a/E5C158?text=Esmalta%C3%A7%C3%A3o+em+Gel" alt="Resultado Unha" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-charcoal-950/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <span class="px-4 py-2 rounded-full bg-gold-500 text-black text-xs font-bold uppercase">Unhas de Luxo</span>
+                            </div>
+                        </div>
+                        <div class="p-4 border-t border-zinc-800">
+                            <h4 class="font-serif font-bold text-white text-sm">Esmaltação em Gel & Nail Art</h4>
+                            <p class="text-xs text-zinc-400 mt-0.5">Alta durabilidade e brilho intenso</p>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 3 -->
+                    <div class="gallery-item cilios rounded-2xl overflow-hidden glass-card group transition-all duration-300">
+                        <div class="relative h-72 overflow-hidden">
+                            <img src="https://placehold.co/600x600/18181b/F3E5AB?text=Extens%C3%A3o+de+C%C3%ADlios" alt="Resultado Cílios" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-charcoal-950/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <span class="px-4 py-2 rounded-full bg-gold-500 text-black text-xs font-bold uppercase">Volume Marcante</span>
+                            </div>
+                        </div>
+                        <div class="p-4 border-t border-zinc-800">
+                            <h4 class="font-serif font-bold text-white text-sm">Extensão de Cílios Volume Híbrido</h4>
+                            <p class="text-xs text-zinc-400 mt-0.5">Olhar marcante com leveza</p>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 4 -->
+                    <div class="gallery-item cabelos rounded-2xl overflow-hidden glass-card group transition-all duration-300">
+                        <div class="relative h-72 overflow-hidden">
+                            <img src="https://placehold.co/600x600/27272a/D4AF37?text=Escova+e+Tratamento" alt="Tratamento Capilar" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-charcoal-950/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <span class="px-4 py-2 rounded-full bg-gold-500 text-black text-xs font-bold uppercase">Cronograma Capilar</span>
+                            </div>
+                        </div>
+                        <div class="p-4 border-t border-zinc-800">
+                            <h4 class="font-serif font-bold text-white text-sm">Nutrição Profunda & Escova</h4>
+                            <p class="text-xs text-zinc-400 mt-0.5">Maciez e alinhamento do fio</p>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 5 -->
+                    <div class="gallery-item unhas rounded-2xl overflow-hidden glass-card group transition-all duration-300">
+                        <div class="relative h-72 overflow-hidden">
+                            <img src="https://placehold.co/600x600/18181b/E5C158?text=Cuidados+Podologia" alt="Podologia" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-charcoal-950/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <span class="px-4 py-2 rounded-full bg-gold-500 text-black text-xs font-bold uppercase">Saúde dos Pés</span>
+                            </div>
+                        </div>
+                        <div class="p-4 border-t border-zinc-800">
+                            <h4 class="font-serif font-bold text-white text-sm">Atendimento Podológico Completo</h4>
+                            <p class="text-xs text-zinc-400 mt-0.5">Conforto, saúde e bem-estar</p>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 6 -->
+                    <div class="gallery-item cilios rounded-2xl overflow-hidden glass-card group transition-all duration-300">
+                        <div class="relative h-72 overflow-hidden">
+                            <img src="https://placehold.co/600x600/27272a/F3E5AB?text=Lash+Lifting" alt="Lash Lifting" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-charcoal-950/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <span class="px-4 py-2 rounded-full bg-gold-500 text-black text-xs font-bold uppercase">Efeito Natural</span>
+                            </div>
+                        </div>
+                        <div class="p-4 border-t border-zinc-800">
+                            <h4 class="font-serif font-bold text-white text-sm">Lash Lifting & Nutrição de Cílios</h4>
+                            <p class="text-xs text-zinc-400 mt-0.5">Curvatura e curvamento dos fios naturais</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- LOCALIZAÇÃO & CONTATO SECTION -->
+        <section id="localizacao" class="py-20 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                    
+                    <!-- Left Column Contact Info & Hours -->
+                    <div class="lg:col-span-5 space-y-8">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-widest text-gold-500">Venha nos Visitar</span>
+                            <h2 class="text-3xl sm:text-4xl font-serif font-bold text-white tracking-tight mt-1">
+                                Localização no Centro de Sete Lagoas
+                            </h2>
+                            <p class="text-zinc-400 text-sm mt-3">
+                                Fácil acesso no coração de Sete Lagoas, próximo a comércios e facilidades.
+                            </p>
+                        </div>
+
+                        <!-- Info Cards -->
+                        <div class="space-y-4">
+                            
+                            <!-- Address -->
+                            <div class="p-5 rounded-2xl glass-card flex items-start space-x-4">
+                                <div class="w-12 h-12 rounded-xl bg-gold-500/10 border border-gold-500/30 text-gold-400 flex items-center justify-center text-xl flex-shrink-0">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div class="space-y-1">
+                                    <h4 class="text-sm font-bold text-white">Endereço</h4>
+                                    <p class="text-xs text-zinc-300 leading-relaxed">
+                                        Rua Paulo Frontin, 315 — Centro<br>
+                                        Sete Lagoas - MG, 35700-049
+                                    </p>
+                                    <a href="https://maps.google.com/?cid=9746623016443245807" target="_blank" rel="noopener noreferrer" class="inline-block text-xs font-bold text-gold-400 hover:text-gold-300 pt-1">
+                                        Abrir no Google Maps <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Phone / Whatsapp -->
+                            <div class="p-5 rounded-2xl glass-card flex items-start space-x-4">
+                                <div class="w-12 h-12 rounded-xl bg-gold-500/10 border border-gold-500/30 text-gold-400 flex items-center justify-center text-xl flex-shrink-0">
+                                    <i class="fa-brands fa-whatsapp"></i>
+                                </div>
+                                <div class="space-y-1">
+                                    <h4 class="text-sm font-bold text-white">WhatsApp & Agendamentos</h4>
+                                    <p class="text-xs text-zinc-300">(31) 98033-0444</p>
+                                    <p class="text-[11px] text-zinc-400">Atendimento rápido por mensagem</p>
+                                </div>
+                            </div>
+
+                            <!-- Hours -->
+                            <div class="p-5 rounded-2xl glass-card flex items-start space-x-4">
+                                <div class="w-12 h-12 rounded-xl bg-gold-500/10 border border-gold-500/30 text-gold-400 flex items-center justify-center text-xl flex-shrink-0">
+                                    <i class="fa-solid fa-clock"></i>
+                                </div>
+                                <div class="space-y-1 w-full">
+                                    <h4 class="text-sm font-bold text-white">Horário de Funcionamento</h4>
+                                    <div class="text-xs text-zinc-300 space-y-1 pt-1">
+                                        <div class="flex justify-between border-b border-zinc-800/80 pb-1">
+                                            <span>Terça a Sábado:</span>
+                                            <span class="font-semibold text-gold-400">08:00 às 18:00</span>
+                                        </div>
+                                        <div class="flex justify-between pt-0.5">
+                                            <span>Domingo e Segunda:</span>
+                                            <span class="text-zinc-500">Fechado</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Right Column Quick Booking / Map Card -->
+                    <div class="lg:col-span-7">
+                        <div class="glass-card rounded-3xl p-8 sm:p-10 space-y-6">
+                            
+                            <div class="space-y-2">
+                                <h3 class="font-serif font-bold text-2xl text-white">Solicitar Pré-Agendamento</h3>
+                                <p class="text-xs text-zinc-400">Preencha abaixo para enviar uma mensagem direta de agendamento no WhatsApp.</p>
+                            </div>
+
+                            <form id="booking-form" class="space-y-4">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label for="booking-name" class="block text-xs font-bold text-zinc-300 uppercase tracking-wider mb-2">Seu Nome</label>
+                                        <input type="text" id="booking-name" required placeholder="Ex: Maria Silva" class="w-full px-4 py-3 rounded-xl bg-charcoal-900 border border-zinc-800 text-white placeholder-zinc-600 focus:outline-none focus:border-gold-500 text-xs">
+                                    </div>
+                                    <div>
+                                        <label for="booking-service" class="block text-xs font-bold text-zinc-300 uppercase tracking-wider mb-2">Procedimento Desejado</label>
+                                        <select id="booking-service" class="w-full px-4 py-3 rounded-xl bg-charcoal-900 border border-zinc-800 text-white focus:outline-none focus:border-gold-500 text-xs">
+                                            <option value="Cabelo">Cabelo (Corte/Cor/Tratamento)</option>
+                                            <option value="Unhas">Unhas / Gel</option>
+                                            <option value="Podologia">Podologia Especializada</option>
+                                            <option value="Cilios">Extensão de Cílios / Olhar</option>
+                                            <option value="Outro">Outro Procedimento</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="booking-date" class="block text-xs font-bold text-zinc-300 uppercase tracking-wider mb-2">Data ou Turno de Preferência</label>
+                                    <input type="text" id="booking-date" placeholder="Ex: Próxima Quinta-feira à tarde" class="w-full px-4 py-3 rounded-xl bg-charcoal-900 border border-zinc-800 text-white placeholder-zinc-600 focus:outline-none focus:border-gold-500 text-xs">
+                                </div>
+
+                                <div>
+                                    <label for="booking-notes" class="block text-xs font-bold text-zinc-300 uppercase tracking-wider mb-2">Observações (Opcional)</label>
+                                    <textarea id="booking-notes" rows="3" placeholder="Algum detalhe adicional que gostaria de informar?" class="w-full px-4 py-3 rounded-xl bg-charcoal-900 border border-zinc-800 text-white placeholder-zinc-600 focus:outline-none focus:border-gold-500 text-xs resize-none"></textarea>
+                                </div>
+
+                                <button type="submit" class="w-full py-4 rounded-xl gold-gradient-bg gold-gradient-bg-hover text-black font-bold uppercase text-xs tracking-widest shadow-xl flex items-center justify-center space-x-2">
+                                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                                    <span>Enviar Solicitação no WhatsApp</span>
+                                </button>
+                            </form>
+
+                            <!-- Map Link Feature Banner -->
+                            <div class="mt-6 pt-6 border-t border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                                <div class="text-xs text-zinc-400 text-center sm:text-left">
+                                    <p class="font-bold text-white">Quer traçar a rota até nosso espaço?</p>
+                                    <p>Estamos na Rua Paulo Frontin, 315 - Centro, Sete Lagoas - MG</p>
+                                </div>
+                                <a href="https://maps.google.com/?cid=9746623016443245807" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-xl bg-charcoal-800 hover:bg-zinc-800 border border-zinc-700 text-gold-400 text-xs font-bold whitespace-nowrap flex items-center space-x-2">
+                                    <i class="fa-solid fa-map-location-dot"></i>
+                                    <span>Ver no Mapa</span>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-charcoal-950 border-t border-zinc-800/80 pt-16 pb-8 text-zinc-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <!-- Col 1: Brand -->
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full border border-gold-500/50 flex items-center justify-center text-gold-500 bg-charcoal-900">
+                            <span class="font-serif font-bold text-base gold-gradient-text">JM</span>
+                        </div>
+                        <span class="font-serif font-bold text-lg text-white">Juliana Machado</span>
+                    </div>
+                    <p class="text-xs leading-relaxed text-zinc-400">
+                        Atendimento personalizado, excelência técnica e biossegurança. Espaço de beleza especializado em Cabelos, Unhas, Podologia e Cílios em Sete Lagoas - MG.
+                    </p>
+                </div>
+
+                <!-- Col 2: Navigation -->
+                <div class="space-y-3">
+                    <h4 class="text-white text-xs font-bold uppercase tracking-widest">Navegação</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#inicio" class="hover:text-gold-400 transition-colors">Início</a></li>
+                        <li><a href="#servicos" class="hover:text-gold-400 transition-colors">Serviços</a></li>
+                        <li><a href="#sobre" class="hover:text-gold-400 transition-colors">Sobre</a></li>
+                        <li><a href="#galeria" class="hover:text-gold-400 transition-colors">Galeria</a></li>
+                        <li><a href="#localizacao" class="hover:text-gold-400 transition-colors">Localização</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Services List -->
+                <div class="space-y-3">
+                    <h4 class="text-white text-xs font-bold uppercase tracking-widest">Procedimentos</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><span class="hover:text-gold-400 cursor-pointer">Cabelos & Coloração</span></li>
+                        <li><span class="hover:text-gold-400 cursor-pointer">Unhas & Esmaltação em Gel</span></li>
+                        <li><span class="hover:text-gold-400 cursor-pointer">Podologia Clínica</span></li>
+                        <li><span class="hover:text-gold-400 cursor-pointer">Extensão de Cílios</span></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Contact Summary -->
+                <div class="space-y-3">
+                    <h4 class="text-white text-xs font-bold uppercase tracking-widest">Contato & Agendamento</h4>
+                    <p class="text-xs text-zinc-400">WhatsApp: (31) 98033-0444</p>
+                    <p class="text-xs text-zinc-400">Rua Paulo Frontin, 315 - Centro<br>Sete Lagoas - MG</p>
+                    
+                    <div class="pt-2">
+                        <a href="https://wa.me/5531980330444?text=Ol%C3%A1%20Juliana%2C%20gostaria%20de%20agendar%20um%20hor%C3%A1rio!" 
+                           target="_blank" 
+                           rel="noopener noreferrer" 
+                           class="inline-flex items-center space-x-2 text-xs font-bold text-gold-400 hover:text-gold-300">
+                            <i class="fa-brands fa-whatsapp text-sm"></i>
+                            <span>Clique aqui para agendar</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Copyright line -->
+            <div class="pt-8 border-t border-zinc-900 text-center text-xs text-zinc-600 flex flex-col sm:flex-row justify-between items-center gap-4">
+                <p>&copy; 2026 Juliana Machado | Espaço de Beleza e Podologia. Todos os direitos reservados.</p>
+                <p class="text-[11px]">Sete Lagoas - MG</p>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- INTERACTIVITIES SCRIPT -->
+    <script>
+        // --- 1. Mobile Menu Drawer ---
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // --- 2. Gallery Filter ---
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active classes
+                filterBtns.forEach(b => {
+                    b.classList.remove('active', 'gold-gradient-bg', 'text-black');
+                    b.classList.add('bg-charcoal-800', 'text-zinc-300');
+                });
+                // Add active classes
+                btn.classList.add('active', 'gold-gradient-bg', 'text-black');
+                btn.classList.remove('bg-charcoal-800', 'text-zinc-300');
+
+                const filter = btn.getAttribute('data-filter');
+
+                galleryItems.forEach(item => {
+                    if (filter === 'all' || item.classList.contains(filter)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // --- 3. Toast Helper ---
+        const toast = document.getElementById('toast');
+        const toastTitle = document.getElementById('toast-title');
+        const toastMessage = document.getElementById('toast-message');
+
+        function showToast(title, message) {
+            toastTitle.textContent = title;
+            toastMessage.textContent = message;
+            toast.classList.remove('translate-y-32', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-32', 'opacity-0');
+            }, 4000);
+        }
+
+        // --- 4. Booking Form WhatsApp Dispatcher ---
+        const bookingForm = document.getElementById('booking-form');
+        bookingForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('booking-name').value.trim();
+            const service = document.getElementById('booking-service').value;
+            const date = document.getElementById('booking-date').value.trim();
+            const notes = document.getElementById('booking-notes').value.trim();
+
+            let text = `Olá Juliana! Gostaria de solicitar um agendamento:\n\n`;
+            text += `*Nome:* ${name}\n`;
+            text += `*Procedimento:* ${service}\n`;
+            if (date) text += `*Data/Preferência:* ${date}\n`;
+            if (notes) text += `*Observações:* ${notes}\n`;
+
+            const encodedText = encodeURIComponent(text);
+            const waUrl = `https://wa.me/5531980330444?text=${encodedText}`;
+
+            showToast("Redirecionando...", "Abrindo seu WhatsApp com as informações preenchidas.");
+
+            setTimeout(() => {
+                window.open(waUrl, '_blank');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
